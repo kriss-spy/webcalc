@@ -1,0 +1,91 @@
+:root {
+    --buttonSize: 20px;
+    --buttonGap: 2px;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+#logo {
+    font-size: xx-large;
+}
+
+.header-items {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+}
+
+.display {
+    border: 2px solid black;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-operators {
+    display: flex;
+    flex-direction: row;
+    gap: var(--buttonGap);
+}
+
+.input-area .container {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--buttonGap);
+}
+
+.numbers {
+    display: flex;
+    flex-direction: row;
+    gap: var(--buttonGap);
+    max-width: 70px;
+    flex-wrap: wrap;
+}
+
+.numbers button {
+    flex: 1 1 var(--buttonSize);
+}
+
+.side-operators {
+    display: flex;
+    flex-direction: column;
+    gap: var(--buttonGap);
+
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: aliceblue;
+}
