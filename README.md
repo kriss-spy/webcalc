@@ -29,6 +29,8 @@ simple web page calculator
 
 #### write js to implement calculator functions
 
+var: ans, a, b, op
+
 #### complete css design
 
 ### v2
@@ -38,6 +40,16 @@ simple web page calculator
 #### ans button
 
 #### responsive design
+
+### v3
+
+#### equation input
+
+instead of calculating right after the second operand
+
+input an equation consisting of numbers and operators
+
+press "=" to calculate
 
 ## references
 
