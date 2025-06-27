@@ -1,5 +1,5 @@
 :root {
-    --buttonSize: 20px;
+    --buttonSize: 50px;
     --buttonGap: 2px;
 }
 
@@ -39,45 +39,71 @@ body {
     align-items: center;
 }
 
+.calculator {
+    height: 500px;
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .display {
     border: 2px solid black;
+    background-color: lightgray;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    padding: 1em;
 }
 
 .input-area {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: var(--buttonGap);
 }
 
 .top-operators {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: var(--buttonGap);
 }
 
 .input-area .container {
     display: flex;
-    justify-content: space-between;
-    gap: var(--buttonGap);
+    height: 210px;
 }
 
 .numbers {
     display: flex;
     flex-direction: row;
     gap: var(--buttonGap);
-    max-width: 70px;
     flex-wrap: wrap;
+    align-items: stretch;
 }
 
-.numbers button {
-    flex: 1 1 var(--buttonSize);
+
+
+button {
+    width: var(--buttonSize);
+    height: var(--buttonSize);
+    border-radius: 5px;
+}
+
+#zero {
+    width: calc(var(--buttonSize)*2);
+    height: var(--buttonSize);
 }
 
 .side-operators {
     display: flex;
     flex-direction: column;
     gap: var(--buttonGap);
+    width: var(--buttonSize);
+}
 
+.side-operators button {
+    flex-grow: 1;
 }
 
 .footer {
