@@ -9,39 +9,44 @@ function display(s) {
 }
 
 function atomCalc(op, a, b) {
-  if (a != +a || b != b) {
-    return "operand must be number";
+  let ans = 0;
+  a = Number(a);
+  b = Number(b);
+  if (typeof a === NaN || b === NaN) {
+    ans = "operand must be number";
   }
   if (op == "+") {
-    return a + b;
+    ans = a + b;
   } else if (op == "-") {
-    return a - b;
+    ans = a - b;
   } else if (op == "x") {
-    return a * b;
+    ans = a * b;
   } else if (op == "/") {
     if (b == 0) {
-      return "zero divide error";
+      ans = "zero divide error";
     } else {
-      return a / b;
+      ans = a / b;
     }
   } else if (op == "%") {
     if (b == 0) {
-      return "zero mod error";
+      ans = "zero mod error";
     } else {
-      return a % b;
+      ans = a % b;
     }
   } else {
-    return "op unsupported";
+    ans = "op unsupported";
   }
+  return ans;
 }
 
 function calculateResult() {
   if (!op) {
-    if (storeData) {
-      display_buffer = storeData;
+    if (input_buffer != undefined) {
+      display_buffer = input_buffer;
+      storeData = input_buffer;
       display(display_buffer);
     } else {
-      return "no input";
+      display(storeData);
     }
   } else {
     if (!input_buffer) {
@@ -57,13 +62,16 @@ function calculateResult() {
 
 function clear() {
   op = undefined;
+  input_buffer = "";
   display_buffer = "";
 }
 
 function allClear() {
   op = undefined;
+  input_buffer = "";
   display_buffer = "";
   storeData = undefined;
+  display(display_buffer);
 }
 
 function input_buffer_append(c) {
@@ -93,7 +101,16 @@ operator_btns.forEach((btn) => {
       calculateResult();
       const sym = btn.textContent;
       op = sym;
+    } else if (input_buffer == "") {
+      input_buffer = "";
+      display_buffer = "";
+      display(display_buffer);
+
+      const sym = btn.textContent;
+      op = sym;
     } else {
+      storeData = Number(input_buffer);
+      input_buffer = "";
       display_buffer = "";
       display(display_buffer);
 
