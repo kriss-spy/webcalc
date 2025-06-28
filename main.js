@@ -1,8 +1,7 @@
-let ans = undefined;
 let op = undefined;
-let a = undefined;
-let b = undefined;
-let buffer = "";
+let storeData = undefined;
+let display_buffer = "";
+let input_buffer = "";
 
 function display(s) {
   const scr = document.querySelector(".screen");
@@ -17,7 +16,7 @@ function atomCalc(op, a, b) {
     return a + b;
   } else if (op == "-") {
     return a - b;
-  } else if (op == "*") {
+  } else if (op == "x") {
     return a * b;
   } else if (op == "/") {
     if (b == 0) {
@@ -38,39 +37,71 @@ function atomCalc(op, a, b) {
 
 function calculateResult() {
   if (!op) {
-    if (a) {
-      ans = a;
-      display(a);
+    if (storeData) {
+      display_buffer = storeData;
+      display(display_buffer);
     } else {
       return "no input";
     }
   } else {
-    if (!b) {
+    if (!input_buffer) {
       return;
     } else {
-      ans = atomCalc(op, a, b);
-      display(ans);
+      storeData = atomCalc(op, storeData, Number(input_buffer));
+      input_buffer = "";
+      display_buffer = storeData;
+      display(display_buffer);
     }
   }
 }
 
-function allClear() {
-  ans = undefined;
+function clear() {
   op = undefined;
-  a = undefined;
-  b = undefined;
-  buffer = "";
+  display_buffer = "";
 }
 
-function buffer_append(c) {
-  if (buffer == "0") {
-    buffer = c;
+function allClear() {
+  op = undefined;
+  display_buffer = "";
+  storeData = undefined;
+}
+
+function input_buffer_append(c) {
+  if (input_buffer == "0") {
+    input_buffer = c;
   } else {
-    buffer += c;
+    input_buffer += c;
   }
 }
 
 // op
+const top_operator_btns = document.querySelectorAll(".top-operators button");
+const operator_btns = Array.from(top_operator_btns);
+const add_btn = document.querySelector("#add");
+operator_btns.push(add_btn);
+operator_btns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (storeData === undefined) {
+      // TODO debug main logic
+      storeData = Number(input_buffer); // TODO buffer format error handling
+      input_buffer = "";
+      display_buffer = input_buffer;
+      display(display_buffer);
+      const sym = btn.textContent;
+      op = sym;
+    } else if (op && input_buffer) {
+      calculateResult();
+      const sym = btn.textContent;
+      op = sym;
+    } else {
+      display_buffer = "";
+      display(display_buffer);
+
+      const sym = btn.textContent;
+      op = sym;
+    }
+  });
+});
 
 // operand
 // all input will go to buffer
@@ -80,11 +111,15 @@ const number_btns = document.querySelectorAll(".numbers button");
 number_btns.forEach((btn) => {
   btn.addEventListener("click", () => {
     const sym = btn.textContent;
-    buffer_append(sym);
-    display(buffer);
+    input_buffer_append(sym);
+    display_buffer = input_buffer;
+    display(display_buffer);
   });
 });
 
 // calculate
 const equal_btn = document.querySelector("#equal");
-equal_btn.addEventListener("click", calculateResult());
+equal_btn.addEventListener("click", () => {
+  calculateResult();
+  clear();
+});
