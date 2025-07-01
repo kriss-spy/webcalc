@@ -56,9 +56,17 @@ body {
     padding: 1em;
 }
 
+
+
 .input-area {
     display: flex;
     flex-direction: column;
+    gap: var(--buttonGap);
+}
+
+.clear-buttons {
+    display: flex;
+    justify-content: end;
     gap: var(--buttonGap);
 }
 

@@ -10,10 +10,8 @@ function display(s) {
 
 function atomCalc(op, a, b) {
   let ans = 0;
-  a = Number(a);
-  b = Number(b);
-  if (typeof a === NaN || b === NaN) {
-    ans = "operand must be number";
+  if (Number.isNaN(a) || Number.isNaN(b)) {
+    return "operand must be number";
   }
   if (op == "+") {
     ans = a + b;
@@ -42,6 +40,13 @@ function atomCalc(op, a, b) {
 function calculateResult() {
   if (!op) {
     if (input_buffer != undefined) {
+      if (Number.isNaN(Number(input_buffer))) {
+        allClear();
+        display_buffer = "invalid input";
+        display(display_buffer);
+        return;
+      }
+
       display_buffer = input_buffer;
       storeData = input_buffer;
       display(display_buffer);
@@ -82,6 +87,13 @@ function input_buffer_append(c) {
   }
 }
 
+function input_buffer_pop() {
+  if (input_buffer) {
+    input_buffer = input_buffer.slice(0, -1);
+  }
+}
+
+function is_valid_float(f) {}
 // op
 const top_operator_btns = document.querySelectorAll(".top-operators button");
 const operator_btns = Array.from(top_operator_btns);
@@ -92,12 +104,25 @@ operator_btns.forEach((btn) => {
     if (storeData === undefined) {
       // TODO debug main logic
       storeData = Number(input_buffer); // TODO buffer format error handling
+      if (storeData == NaN) {
+        clear();
+        display_buffer = "invalid input";
+        display(display_buffer);
+        return;
+      }
       input_buffer = "";
       display_buffer = input_buffer;
       display(display_buffer);
       const sym = btn.textContent;
       op = sym;
     } else if (op && input_buffer) {
+      if (storeData == NaN) {
+        allClear();
+        display_buffer = "invalid input";
+        display(display_buffer);
+        return;
+      }
+
       calculateResult();
       const sym = btn.textContent;
       op = sym;
@@ -110,6 +135,13 @@ operator_btns.forEach((btn) => {
       op = sym;
     } else {
       storeData = Number(input_buffer);
+      if (storeData == NaN) {
+        allClear();
+        display_buffer = "invalid input";
+        display(display_buffer);
+        return;
+      }
+
       input_buffer = "";
       display_buffer = "";
       display(display_buffer);
@@ -139,4 +171,18 @@ const equal_btn = document.querySelector("#equal");
 equal_btn.addEventListener("click", () => {
   calculateResult();
   clear();
+});
+
+// delete
+const del_btn = document.querySelector("#delete");
+del_btn.addEventListener("click", () => {
+  input_buffer_pop();
+  display_buffer = input_buffer;
+  display(display_buffer);
+});
+
+// all clear
+const AC_btn = document.querySelector("#allClear");
+AC_btn.addEventListener("click", () => {
+  allClear();
 });
