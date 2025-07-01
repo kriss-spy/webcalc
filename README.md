@@ -27,15 +27,21 @@ simple web page calculator
 
 #### basic css design
 
+looks fine
+
 #### write js to implement calculator functions
 
 var: ans, a, b, op
 
 #### complete css design
 
+someday?
+
 ### v2
 
 #### float point input
+
+finished
 
 #### ans button
 
